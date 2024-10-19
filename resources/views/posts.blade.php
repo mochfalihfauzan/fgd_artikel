@@ -54,6 +54,17 @@
                     </small>
                     <small class="text-muted ms-3"><i class="bi bi-chat-left"></i>
                         {{ $posts[0]->comments->count() }}</small>
+                    @php
+                        $averageRating = $posts[0]->ratings->avg('rating');
+                    @endphp
+
+                    @if ($averageRating)
+                        <small class="text-muted ms-3">Rating:
+                            {{ number_format($averageRating, 1) }}⭐</small>
+                    @else
+                        <small class="text-muted ms-3">not rated yet.</small>
+                    @endif
+
                 </p>
 
                 <p class="card-text">{{ $posts[0]->excerpt }}</p>
@@ -94,6 +105,16 @@
                                     </small>
                                     <small class="text-muted ms-3"><i class="bi bi-chat-left"></i>
                                         {{ $post->comments->count() }}</small>
+                                    @php
+                                        $averageRating = $post->ratings->avg('rating');
+                                    @endphp
+
+                                    @if ($averageRating)
+                                        <small class="text-muted ms-3">Rating:
+                                            {{ number_format($averageRating, 1) }}⭐</small>
+                                    @else
+                                        <small class="text-muted ms-3">not rated yet.</small>
+                                    @endif
                                 </p>
                                 <p class="card-text">{{ $post->excerpt }}</p>
                                 <a href="/posts/{{ $post->slug }}" class="btn btn-primary">Read more &raquo;</a>
