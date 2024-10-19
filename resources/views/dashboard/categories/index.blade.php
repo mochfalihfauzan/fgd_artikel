@@ -29,17 +29,14 @@
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $category->name }}</td>
                         <td>
-                            <a href="/dashboard/categories/{{ $category->slug }}" class="badge bg-info"><i
-                                    class="bi bi-eye-fill"></i></a>
-                            <a href="/dashboard/categories/{{ $category->slug }}/edit" class="badge bg-warning"><i
+                            <a href="/dashboard/categories/{{ $category->id }}/edit" class="badge bg-warning"><i
                                     class="bi bi-pencil-fill"></i></a>
-                            <form class="d-inline" action="/dashboard/categories/{{ $category->slug }}" method="POST">
+                            <form class="d-inline" action="/dashboard/categories/{{ $category->id }}" method="POST">
                                 @method('delete')
                                 @csrf
                                 <button class="badge bg-danger border-0" onclick="return confirm('Are You Sure?')"><i
                                         class="bi bi-trash-fill"></i></button>
                             </form>
-
                         </td>
 
                     </tr>

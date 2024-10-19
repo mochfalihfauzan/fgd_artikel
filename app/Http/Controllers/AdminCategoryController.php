@@ -57,25 +57,40 @@ class AdminCategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(category $category)
+    public function edit(Category $category)
     {
-        //
+        Gate::authorize('admin');
+        return view('/dashboard/categories/edit', [
+            'category' => $category,
+        ]);
     }
+
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, category $category)
+    public function update(Request $request, Category $category)
     {
-        //
+        Gate::authorize('admin');
+        $validatedData = $request->validate([
+            'name' => 'required|max:255',
+            'slug' => 'required|unique:categories',
+        ]);
+
+        Category::where('id', $category->id)
+            ->update($validatedData);
+
+        return redirect('/dashboard/categories')->with('success', 'Category has been updated!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(category $category)
+    public function destroy(Category $category)
     {
-        //
+        Gate::authorize('admin');
+        $category->delete();
+        return redirect('/dashboard/categories')->with('success', 'Category has been deleted!');
     }
 
     public function checkSlug(Request $request)
