@@ -28,45 +28,48 @@
                 </article>
                 <a href="/posts" class="d-block mt-4">&laquo; Back to posts</a>
                 <hr>
-                <div>
-                    @if (session('success'))
-                        <div class="alert alert-success">
-                            {{ session('success') }}
-                        </div>
-                    @endif
+                @auth
+                    <div>
+                        @if (session('success'))
+                            <div class="alert alert-success">
+                                {{ session('success') }}
+                            </div>
+                        @endif
 
-                    @php
-                        $userRating = $post->ratings->where('user_id', auth()->id())->first();
-                    @endphp
+                        @php
+                            $userRating = $post->ratings->where('user_id', auth()->id())->first();
+                        @endphp
 
-                    @if ($userRating)
-                        <p class="fw-bold">You have already rated this post: {{ $userRating->rating }}/5</p>
-                    @else
-                        <form action="{{ route('posts.ratings.store', $post) }}" method="POST">
-                            @csrf
-                            <label for="rating" class="fw-bold">Rate this post:</label>
-                            <select name="rating" id="rating" class="form-select">
-                                <option value="1">⭐</option>
-                                <option value="2">⭐⭐</option>
-                                <option value="3">⭐⭐⭐</option>
-                                <option value="4">⭐⭐⭐⭐</option>
-                                <option value="5" selected>⭐⭐⭐⭐⭐</option>
-                            </select>
-                            <button type="submit" class="btn btn-primary mt-3">Submit</button>
-                        </form>
-                    @endif
-                    <!-- Menampilkan rata-rata rating -->
-                    @php
-                        $averageRating = $post->ratings->avg('rating');
-                    @endphp
+                        @if ($userRating)
+                            <p class="fw-bold">You have already rated this post: {{ $userRating->rating }}/5</p>
+                        @else
+                            <form action="{{ route('posts.ratings.store', $post) }}" method="POST">
+                                @csrf
+                                <label for="rating" class="fw-bold">Rate this post:</label>
+                                <select name="rating" id="rating" class="form-select">
+                                    <option value="1">⭐</option>
+                                    <option value="2">⭐⭐</option>
+                                    <option value="3">⭐⭐⭐</option>
+                                    <option value="4">⭐⭐⭐⭐</option>
+                                    <option value="5" selected>⭐⭐⭐⭐⭐</option>
+                                </select>
+                                <button type="submit" class="btn btn-primary mt-3">Submit</button>
+                            </form>
+                        @endif
+                        @php
+                            $averageRating = $post->ratings->avg('rating');
+                        @endphp
 
-                    @if ($averageRating)
-                        <p class="fw-bold h3 mt-3">Rating: {{ $averageRating . '/5' }}⭐</p>
-                    @else
-                        <p class="fw-bold h3 mt-3">This blog has not been rated yet.</p>
-                    @endif
-                </div>
-                <hr>
+                        @if ($averageRating)
+                            <p class="fw-bold h3 mt-3">Rating: {{ number_format($averageRating, 1) . '/5' }}⭐</p>
+                        @else
+                            <p class="fw-bold h3 mt-3">This blog has not been rated yet.</p>
+                        @endif
+                    </div>
+                    <hr>
+
+                @endauth
+
                 <div class="mt-5">
                     @auth
                         <form action="/comments" method="POST">

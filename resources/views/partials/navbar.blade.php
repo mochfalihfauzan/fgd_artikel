@@ -44,7 +44,7 @@
                         </ul>
                     </li>
                 @else
-                    <li class="btn btn-success p-0 nav-item border-0"><a
+                    <li class="btn btn-secondary p-0 nav-item border-0"><a
                             class="nav-link text-white {{ Request::is('login') ? 'active' : '' }}" href="/login"><i
                                 class="bi bi-box-arrow-in-right"></i>
                             Login</a></li>

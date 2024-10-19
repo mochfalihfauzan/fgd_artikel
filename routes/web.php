@@ -12,8 +12,8 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AdminCategoryController;
 use App\Http\Controllers\DashboardPostController;
-
-
+use App\Models\Comment;
+use App\Models\Rating;
 
 Route::get('/', function () {
     return view('home', [
@@ -59,7 +59,29 @@ Route::get('/register', [RegisterController::class, 'index'])->middleware('guest
 Route::post('/register', [RegisterController::class, 'store']);
 
 Route::get('/dashboard', function () {
-    return view('dashboard.index');
+    $ratings = Rating::where('user_id', auth()->user()->id)->get();
+    $totalRating = 0;
+    foreach ($ratings as $rating) {
+        $totalRating += $rating->rating;
+    }
+    if (count($ratings) == 0) {
+        $totalRating = 0;
+    } else {
+        $totalRating = $totalRating / count($ratings);
+    }
+
+    $posts = Post::where('user_id', auth()->user()->id)->get();
+    $comments = Comment::where('user_id', auth()->user()->id)->get();
+
+
+    return view(
+        'dashboard.index',
+        [
+            'posts' => $posts,
+            'comments' => $comments,
+            'totalRating' => $totalRating,
+        ]
+    );
 })->middleware('auth');
 
 
