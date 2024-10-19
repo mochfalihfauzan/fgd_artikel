@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Cviebrock\EloquentSluggable\Services\SlugService;
 
 class AdminCategoryController extends Controller
 {
@@ -25,7 +27,8 @@ class AdminCategoryController extends Controller
      */
     public function create()
     {
-        //
+        Gate::authorize('admin');
+        return view('dashboard.categories.create');
     }
 
     /**
@@ -33,7 +36,14 @@ class AdminCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Gate::authorize('admin');
+        $validatedData = $request->validate([
+            'name' => 'required|max:255',
+            'slug' => 'required|unique:categories',
+        ]);
+
+        Category::create($validatedData);
+        return redirect('/dashboard/categories')->with('success', 'New category has been added!');
     }
 
     /**
@@ -66,5 +76,11 @@ class AdminCategoryController extends Controller
     public function destroy(category $category)
     {
         //
+    }
+
+    public function checkSlug(Request $request)
+    {
+        $slug = Str::slug($request->name);
+        return response()->json(['slug' => $slug]);
     }
 }

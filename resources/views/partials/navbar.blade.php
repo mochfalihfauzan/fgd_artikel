@@ -1,6 +1,6 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-warning">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-        <a class="navbar-brand" href="/">Artikel FGD</a>
+        <a class="navbar-brand fw-bold" href="/">Artikel FGD</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -10,9 +10,6 @@
                 <li class="nav-item">
                     <a class="nav-link {{ Request::is('/') ? 'active' : '' }}" href="/">Home</a>
                 </li>
-                {{-- <li class="nav-item">
-                    <a class="nav-link {{ Request::is('about') ? 'active' : '' }}" href="/about">About</a>
-                </li> --}}
                 <li class="nav-item">
                     <a class="nav-link {{ Request::is('posts') ? 'active' : '' }}" href="/posts">Blog</a>
                 </li>
