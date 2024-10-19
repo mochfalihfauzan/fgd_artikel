@@ -10,7 +10,7 @@
                 <p class="fs-5 mb-0">Artikel</p>
                 <p class="h2">{{ $posts->count() }}</p>
                 <div class="d-flex justify-content-end">
-                    <a href="" class="btn btn-warning shadow fw-bold m-0">Detail</a>
+                    <a href="/dashboard/posts" class="btn btn-warning shadow fw-bold m-0">Detail</a>
                 </div>
             </div>
         </div>

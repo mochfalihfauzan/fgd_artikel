@@ -35,8 +35,9 @@ class PostController extends Controller
 
     public function show(Post $post)
     {
+        $title = $post->title;
         return view("post", [
-            "title" => "Single Post",
+            "title" => $title,
             "active" => "posts",
 
             "post" => $post

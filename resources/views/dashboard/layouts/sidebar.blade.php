@@ -20,6 +20,10 @@
                         My Posts
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/"><i class="bi bi-arrow-return-left"></i>Kembali Ke Halaman
+                        Home</a>
+                </li>
             </ul>
 
             @can('admin')
