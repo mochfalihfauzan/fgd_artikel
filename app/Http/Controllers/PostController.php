@@ -42,4 +42,18 @@ class PostController extends Controller
             "post" => $post
         ]);
     }
+
+    public function storeRating(Request $request, Post $post)
+    {
+        $request->validate([
+            'rating' => 'required|integer|min:1|max:5',
+        ]);
+
+        $post->ratings()->create([
+            'user_id' => auth()->id(),
+            'rating' => $request->rating,
+        ]);
+
+        return back()->with('success', 'Rating has been added!');
+    }
 }
