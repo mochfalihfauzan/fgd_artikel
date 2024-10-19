@@ -66,8 +66,7 @@
                 @error('body')
                     <p class="text-danger">{{ $message }}</p>
                 @enderror
-                <input id="x" type="hidden" name="body" value="{{ old('body', $post->body) }}">
-                <trix-editor input="x"></trix-editor>
+                <textarea name="body" id="body" class="body">{{ old('body', $post->body) }}</textarea>
             </div>
 
 
@@ -105,5 +104,15 @@
             }
 
         }
+    </script>
+
+    <!-- Script TinyMCE -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/7.4.1/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+        tinymce.init({
+            selector: 'textarea#body',
+            plugins: 'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+            toolbar_mode: 'floating',
+        });
     </script>
 @endsection

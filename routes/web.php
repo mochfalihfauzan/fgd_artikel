@@ -59,7 +59,7 @@ Route::get('/register', [RegisterController::class, 'index'])->middleware('guest
 Route::post('/register', [RegisterController::class, 'store']);
 
 Route::get('/dashboard', function () {
-    $ratings = Rating::where('user_id', auth()->user()->id)->get();
+    $ratings = Post::where('user_id', auth()->user()->id)->get()->pluck('ratings')->flatten();
     $totalRating = 0;
     foreach ($ratings as $rating) {
         $totalRating += $rating->rating;
