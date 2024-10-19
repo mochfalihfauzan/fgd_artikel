@@ -71,3 +71,5 @@ Route::resource('dashboard/categories', AdminCategoryController::class)->except(
     ->middleware('admin');
 
 Route::post('/comments', [CommentController::class, 'store'])->middleware('auth');
+
+Route::post('/posts/{post}/ratings', [PostController::class, 'storeRating'])->name('posts.ratings.store');
