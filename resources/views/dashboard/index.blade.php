@@ -23,7 +23,7 @@
         <div class="col-8 col-md-4 mx-auto">
             <div class="border px-4 py-3 rounded-3 mb-3 bg-primary text-white shadow" style="height: 10rem">
                 <p class="fs-5 mb-0">Ratings</p>
-                <p class="h2">{{ $totalRating }}⭐</p>
+                <p class="h2">{{ number_format($totalRating, 1) }}⭐</p>
             </div>
         </div>
     </div>
