@@ -71,7 +71,7 @@ Route::get('/dashboard', function () {
     }
 
     $posts = Post::where('user_id', auth()->user()->id)->get();
-    $comments = Comment::where('user_id', auth()->user()->id)->get();
+    $comments = Post::where('user_id', auth()->user()->id)->get()->pluck('comments')->flatten();
 
 
     return view(
